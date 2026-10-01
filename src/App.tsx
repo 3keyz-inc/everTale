@@ -12,7 +12,7 @@ import { StarCursorTrail } from './components/StarCursorTrail';
 import { AuthModal, UserProfile } from './components/AuthModal';
 import { ActiveTab, WishRecord, EverTaleChapter } from './types';
 import { audioSynth } from './utils/audio';
-import { Sparkles, Moon, Lock, Flame, Flower2, Compass, BookOpen, Image as ImageIcon, Globe } from 'lucide-react';
+import { Sparkles, Lock, Info } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('portal');
@@ -29,16 +29,7 @@ export default function App() {
     } catch (e) {
       console.warn('Could not read user from storage:', e);
     }
-    // Default initial profile
-    return {
-      id: 'dawn-guardian',
-      name: 'Dawn Guardian',
-      email: 'dawn@evertale.com',
-      role: 'parent',
-      childName: 'Zephyr',
-      avatarIcon: '✨',
-      createdAt: '2026-07-28',
-    };
+    return null;
   });
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
 
@@ -123,6 +114,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       {/* MAGICAL STAR CURSOR TRAIL */}
       <StarCursorTrail />
 
@@ -136,6 +128,13 @@ export default function App() {
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthOpen(true)}
       />
+
+      <div className="border-b border-cyan-500/20 bg-cyan-950/30 px-4 py-2 text-center text-xs text-cyan-100" role="status">
+        <span className="inline-flex items-center gap-2">
+          <Info className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+          Prototype preview: profiles and saved stories stay in this browser. Story prompts may be sent to the configured AI provider.
+        </span>
+      </div>
 
       {/* MAIN VIEWPORT */}
       <main id="main-content" className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -239,10 +238,10 @@ export default function App() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <p>© {new Date().getFullYear()} EverTale. All rights reserved under the Gordian Privacy Shield.</p>
+            <p>© {new Date().getFullYear()} EverTale. Prototype experience.</p>
             <div className="flex items-center gap-1 text-cyan-400/80">
               <Lock className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Gordian Privacy Shield • Zero Data Harvesting</span>
+              <span>Local browser storage • Clear it from your browser settings</span>
             </div>
           </div>
         </div>
