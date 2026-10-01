@@ -7,9 +7,29 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
-app.use(express.json());
+app.disable("x-powered-by");
+app.use((_req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  next();
+});
+app.use(express.json({ limit: "32kb" }));
+
+const readText = (value: unknown, maxLength: number) =>
+  typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+
+app.get("/api/health", (_req, res) => {
+  res.json({ ok: true, aiConfigured: Boolean(process.env.GEMINI_API_KEY) });
+});
+
+app.use("/api", (_req, res, next) => {
+  res.setHeader("Cache-Control", "no-store");
+  next();
+});
 
 // Initialize Gemini Client lazily or safely
 function getGeminiClient() {
@@ -21,7 +41,13 @@ function getGeminiClient() {
 // API Route 1: Genie Wish Interpretation & Granting
 app.post("/api/genie-wish", async (req, res) => {
   try {
-    const { genie, wishCategory, wishText, seekerName } = req.body;
+    const genie = readText(req.body?.genie, 80);
+    const wishCategory = readText(req.body?.wishCategory, 80);
+    const wishText = readText(req.body?.wishText, 1200);
+    const seekerName = readText(req.body?.seekerName, 80);
+    if (!wishText) {
+      return res.status(400).json({ success: false, error: "A wish is required." });
+    }
     
     const ai = getGeminiClient();
     
@@ -86,7 +112,14 @@ app.post("/api/genie-wish", async (req, res) => {
 // API Route 2: EverTale Birthday Chapter Generator starring Zephyr
 app.post("/api/evertale-chapter", async (req, res) => {
   try {
-    const { childName, age, archetype, specialMemory, favoriteThing } = req.body;
+    const childName = readText(req.body?.childName, 80);
+    const age = Number(req.body?.age);
+    const archetype = readText(req.body?.archetype, 80);
+    const specialMemory = readText(req.body?.specialMemory, 1200);
+    const favoriteThing = readText(req.body?.favoriteThing, 300);
+    if (!childName || !Number.isInteger(age) || age < 1 || age > 18) {
+      return res.status(400).json({ success: false, error: "Enter a name and an age from 1 to 18." });
+    }
     const ai = getGeminiClient();
 
     if (ai) {
@@ -156,7 +189,7 @@ app.post("/api/evertale-chapter", async (req, res) => {
         miniGameDescription: `Help ${childName} collect glowing stardust gems and navigate through the floating sky islands!`,
         miniGameObjective: `Gather 10 Golden Star Thread shards before timer runs out to unlock the Birthday Treasure Chest.`,
         coloringBookPrompt: `${childName} standing beside Zephyr the Wish Weaver in front of a giant glowing storybook.`,
-        parentCommandCenterNote: `This Chapter ${age} heirloom has been securely encrypted in your Parent Vault under the Gordian Privacy Shield. Raw photo files shredded automatically.`,
+        parentCommandCenterNote: `This Chapter ${age} draft is saved in this browser when you choose to keep it.`,
         heirloomQuote: `"The story that grows with ${childName}, today and forever."`
       }
     });
@@ -174,7 +207,7 @@ app.post("/api/evertale-chapter", async (req, res) => {
         miniGameDescription: "Collect stardust crystals to weave the birthday chapter.",
         miniGameObjective: "Gather 5 star shards.",
         coloringBookPrompt: "A magical castle under the crescent moon.",
-        parentCommandCenterNote: "Encrypted under Gordian Privacy Shield.",
+        parentCommandCenterNote: "Saved locally in this browser.",
         heirloomQuote: "A permanent digital heirloom."
       }
     });
@@ -184,7 +217,11 @@ app.post("/api/evertale-chapter", async (req, res) => {
 // API Route 2: Cosmic Orb Fortune Reading
 app.post("/api/cosmic-reading", async (req, res) => {
   try {
-    const { orbName, constellation } = req.body;
+    const orbName = readText(req.body?.orbName, 80);
+    const constellation = readText(req.body?.constellation, 80);
+    if (!orbName || !constellation) {
+      return res.status(400).json({ success: false, error: "Choose an orb name and constellation." });
+    }
     const ai = getGeminiClient();
 
     if (ai) {

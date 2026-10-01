@@ -34,13 +34,13 @@ export const ParentCommandCenter: React.FC<ParentCommandCenterProps> = ({ chapte
         <div className="max-w-3xl mx-auto space-y-3">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-xs font-semibold tracking-wider uppercase">
             <Lock className="w-3.5 h-3.5 text-emerald-300" />
-            Private Vault &amp; Legacy Archive
+            Local Story Library
           </span>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold bg-gradient-to-r from-emerald-200 via-cyan-200 to-amber-200 bg-clip-text text-transparent">
             Parent Command Center
           </h1>
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-            Manage your child&apos;s annual birthday story chapters, verify Gordian Privacy Shield shredding logs, export digital heirlooms, and issue gift cards for grandparents.
+            Review the birthday story chapters saved in this browser and explore prototype keepsake tools.
           </p>
         </div>
       </section>
@@ -54,27 +54,27 @@ export const ParentCommandCenter: React.FC<ParentCommandCenterProps> = ({ chapte
             </div>
             <div>
               <h2 className="font-serif text-2xl font-bold text-emerald-200">
-                The Gordian Effect Privacy Shield
+                Prototype Storage Status
               </h2>
-              <p className="text-xs text-slate-400">Zero raw photos saved. Zero data harvested. Encrypted forever.</p>
+              <p className="text-xs text-slate-400">No photo uploads. Story records are stored locally in this browser.</p>
             </div>
           </div>
           <span className="px-3 py-1 bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-xs font-bold rounded-full flex items-center gap-1">
-            <Check className="w-3.5 h-3.5" /> Shield Active
+            <Check className="w-3.5 h-3.5" /> Local mode
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
           <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-1">
-            <span className="text-slate-400 block font-medium">Raw Photo Destruction Log</span>
+            <span className="text-slate-400 block font-medium">Photo Processing</span>
             <span className="text-emerald-300 font-bold text-sm flex items-center gap-1">
-              <Trash2 className="w-4 h-4 text-emerald-400" /> Shredded Immediately
+              <Trash2 className="w-4 h-4 text-emerald-400" /> Not implemented
             </span>
           </div>
 
           <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-1">
-            <span className="text-slate-400 block font-medium">Vault Encryption Standard</span>
-            <span className="text-cyan-300 font-bold text-sm">AES-256 Cloudflare R2</span>
+            <span className="text-slate-400 block font-medium">Storage Location</span>
+            <span className="text-cyan-300 font-bold text-sm">Browser local storage</span>
           </div>
 
           <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-1">
@@ -121,7 +121,7 @@ export const ParentCommandCenter: React.FC<ParentCommandCenterProps> = ({ chapte
 
                 <div className="flex items-center justify-between pt-2 text-xs">
                   <span className="text-emerald-300 flex items-center gap-1">
-                    <Shield className="w-3.5 h-3.5 text-emerald-400" /> Gordian Encrypted
+                    <Shield className="w-3.5 h-3.5 text-emerald-400" /> Saved on this device
                   </span>
                   <button
                     onClick={onPlayChime}
@@ -171,14 +171,14 @@ export const ParentCommandCenter: React.FC<ParentCommandCenterProps> = ({ chapte
             className="w-full py-3 bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-serif font-bold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
             <Sparkles className="w-4 h-4 text-slate-950" />
-            <span>Generate $79 Gift Voucher Code</span>
+            <span>Preview Gift Voucher Code</span>
           </button>
         </form>
 
         {giftCardCode && (
           <div className="p-4 bg-amber-950/60 border border-amber-400/40 rounded-2xl space-y-3 animate-fade-in text-center">
             <span className="text-xs text-amber-300 font-semibold block uppercase tracking-wider">
-              EverTale Gift Voucher Issued for {recipientName}
+              Demo Voucher Preview for {recipientName}
             </span>
             <div className="flex items-center justify-center gap-2 bg-slate-950 p-3 rounded-xl border border-amber-500/30">
               <span className="font-mono text-lg font-bold text-amber-200">{giftCardCode}</span>
@@ -191,7 +191,7 @@ export const ParentCommandCenter: React.FC<ParentCommandCenterProps> = ({ chapte
               </button>
             </div>
             <p className="text-[11px] text-slate-400">
-              Send this code to the child&apos;s parents. Valid for 1 Annual Birthday Chapter ($79 value).
+              Prototype only. This code has no monetary value and cannot be redeemed.
             </p>
           </div>
         )}

@@ -19,6 +19,7 @@ export const EverTaleChapterCreator: React.FC<EverTaleChapterCreatorProps> = ({
   const [specialMemory, setSpecialMemory] = useState('');
   const [favoriteThing, setFavoriteThing] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState('');
   const [createdChapter, setCreatedChapter] = useState<EverTaleChapter | null>(null);
   
   // Interactive Cartoon Preview State
@@ -72,6 +73,7 @@ export const EverTaleChapterCreator: React.FC<EverTaleChapterCreatorProps> = ({
     if (!childName.trim()) return;
 
     setIsGenerating(true);
+    setGenerationError('');
     onPlayChime();
 
     try {
@@ -88,6 +90,7 @@ export const EverTaleChapterCreator: React.FC<EverTaleChapterCreatorProps> = ({
       });
 
       const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Story generation failed.');
       if (data.success && data.chapter) {
         const fullChapter: EverTaleChapter = {
           id: Date.now().toString(),
@@ -114,6 +117,7 @@ export const EverTaleChapterCreator: React.FC<EverTaleChapterCreatorProps> = ({
       }
     } catch (err) {
       console.error(err);
+      setGenerationError(err instanceof Error ? err.message : 'Story generation failed. Please try again.');
     } finally {
       setIsGenerating(false);
     }
@@ -177,7 +181,7 @@ export const EverTaleChapterCreator: React.FC<EverTaleChapterCreatorProps> = ({
           {/* PRIVACY GUARANTEE BADGE */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/90 border border-cyan-500/30 rounded-2xl text-xs text-cyan-200 backdrop-blur-sm">
             <Shield className="w-4 h-4 text-emerald-400" />
-            <span><strong>The Gordian Privacy Shield:</strong> Photos shredded immediately after rendering. Zero ads, zero data harvesting.</span>
+            <span><strong>Prototype privacy note:</strong> no photos are collected; story details may be sent to the configured AI provider.</span>
           </div>
         </div>
       </section>
@@ -315,6 +319,9 @@ export const EverTaleChapterCreator: React.FC<EverTaleChapterCreatorProps> = ({
               </>
             )}
           </button>
+          {generationError && (
+            <p role="alert" className="text-center text-sm text-rose-300">{generationError}</p>
+          )}
         </form>
       </section>
 
@@ -503,7 +510,7 @@ export const EverTaleChapterCreator: React.FC<EverTaleChapterCreatorProps> = ({
             <div className="flex items-center gap-3">
               <Lock className="w-6 h-6 text-emerald-400 flex-shrink-0" />
               <div>
-                <span className="font-bold block text-sm text-emerald-300">Gordian Privacy Shield Secured</span>
+                <span className="font-bold block text-sm text-emerald-300">Saved in this browser</span>
                 <p>{createdChapter.parentCommandCenterNote}</p>
               </div>
             </div>
