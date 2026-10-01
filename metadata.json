@@ -1,0 +1,6 @@
+{
+  "name": "EverTale: The Story That Grows With Them",
+  "description": "EverTale creates personalized annual birthday story chapters starring your child, guided by Zephyr the Wish Weaver. Features induction story scripts, mini-games, infinite coloring, and a private Parent Command Center.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
