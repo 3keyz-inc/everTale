@@ -59,6 +59,33 @@ NODE_ENV=production npm start
 
 Set `PORT` to override the default port of `3000`.
 
+## Put EverTale online
+
+This repository includes a Render Blueprint in [`render.yaml`](./render.yaml). It runs the React client and Express API together at one public HTTPS address, so the generation endpoints continue to work without a separate API deployment.
+
+### First deployment
+
+1. Push this repository to GitHub, GitLab, or Bitbucket.
+2. Sign in to [Render](https://dashboard.render.com/) and choose **New → Blueprint**.
+3. Connect the repository and select its `render.yaml` Blueprint.
+4. Set `GEMINI_API_KEY` if you want live Gemini generation. You can leave it unset to use the built-in fallback responses.
+5. Approve the Blueprint and wait for the health check to pass.
+6. Render will show the public address in the service header, normally in the form `https://evertale-<suffix>.onrender.com`.
+
+Every push to the connected production branch will trigger a fresh build. The included GitHub Actions workflow separately runs type-checking and a production build before changes are merged.
+
+> **Human authorization required:** connecting the repository and creating the hosted service changes external account state and may incur platform usage or cost. The repository is deployment-ready, but no live service has been created from this development environment because it has no repository remote or authorized hosting account. A prompt is not a substitute for that authenticated approval.
+
+### Verify the deployed link
+
+Replace `<your-live-url>` with the address Render provides:
+
+```bash
+curl --fail --show-error https://<your-live-url>/api/health
+```
+
+Then open `https://<your-live-url>` in a browser and exercise one chapter generation and one wish generation. A successful health response proves only that the deployed server is answering and whether an API key is configured; it does not prove that the external AI provider is reachable.
+
 ## How it is organized
 
 ```text
@@ -135,4 +162,3 @@ Before treating EverTale as a deployable family product, the project still needs
 ## Authorship
 
 EverTale is part of Stephen Paul Primeaux Jr.'s creative work. Repository documentation and implementation assistance may include AI-drafted contributions; those contributions do not transfer authorship of the underlying project concept.
-
