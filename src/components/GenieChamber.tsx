@@ -29,6 +29,7 @@ export const GenieChamber: React.FC<GenieChamberProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [currentResponse, setCurrentResponse] = useState<GenieWishResponse | null>(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [requestError, setRequestError] = useState('');
 
   const categories = [
     { name: 'Creative Destiny', icon: Lightbulb },
@@ -64,6 +65,7 @@ export const GenieChamber: React.FC<GenieChamberProps> = ({
     setIsLoading(true);
     setCurrentResponse(null);
     setSavedSuccess(false);
+    setRequestError('');
 
     try {
       const res = await fetch('/api/genie-wish', {
@@ -78,6 +80,7 @@ export const GenieChamber: React.FC<GenieChamberProps> = ({
       });
 
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'The reading could not be created.');
       if (data.success && data.result) {
         setCurrentResponse(data.result);
         onAddStardust(25);
@@ -85,6 +88,7 @@ export const GenieChamber: React.FC<GenieChamberProps> = ({
       }
     } catch (err) {
       console.error(err);
+      setRequestError(err instanceof Error ? err.message : 'The reading could not be created. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -346,6 +350,9 @@ export const GenieChamber: React.FC<GenieChamberProps> = ({
               </>
             )}
           </button>
+          {requestError && (
+            <p role="alert" className="text-center text-sm text-rose-300">{requestError}</p>
+          )}
         </form>
 
         {/* PARCHMENT SCROLL RESPONSE DISPLAY */}

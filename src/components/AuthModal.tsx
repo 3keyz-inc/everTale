@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Lock, Mail, Shield, Sparkles, LogOut, CheckCircle, Key, UserCheck, X, ChevronRight, Star } from 'lucide-react';
+import { User, Mail, Shield, Sparkles, LogOut, CheckCircle, Key, UserCheck, X, ChevronRight, Star } from 'lucide-react';
 
 export interface UserProfile {
   id: string;
@@ -32,7 +32,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState<'parent' | 'child'>('parent');
   const [childName, setChildName] = useState('');
@@ -81,8 +80,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setSuccessMessage('');
 
     if (activeTab === 'login') {
-      if (!email.trim() || !password.trim()) {
-        setErrorMessage('Please enter both email and password.');
+      if (!email.trim()) {
+        setErrorMessage('Please enter an email label for this local profile.');
         return;
       }
       // Simple authentication lookup
@@ -99,7 +98,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       setSuccessMessage('Successfully logged in!');
       setTimeout(() => onClose(), 600);
     } else {
-      if (!name.trim() || !email.trim() || !password.trim()) {
+      if (!name.trim() || !email.trim()) {
         setErrorMessage('Please complete all required fields.');
         return;
       }
@@ -119,8 +118,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-lg bg-slate-900 border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-amber-950/50 space-y-6">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <div role="dialog" aria-modal="true" aria-labelledby="account-dialog-title" className="relative w-full max-w-lg max-h-[calc(100vh-2rem)] overflow-y-auto bg-slate-900 border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-amber-950/50 space-y-6">
         
         {/* Close Button */}
         <button
@@ -188,11 +187,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <Key className="w-3.5 h-3.5 text-amber-400" />
                 EverTale Account Vault
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-amber-200">
-                Sign In to View Your Stuff
+              <h2 id="account-dialog-title" className="font-serif text-2xl sm:text-3xl font-bold text-amber-200">
+                Open a Local Profile
               </h2>
               <p className="text-xs text-slate-400 max-w-sm mx-auto">
-                Access your personalized EverTale chapters, genie wishes, parent command center, and sanctuary entries.
+                This prototype does not create a real account. Profile details and saved creations remain in this browser.
               </p>
             </div>
 
@@ -295,20 +294,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               </div>
 
               <div className="space-y-1">
-                <label className="block text-xs font-serif text-slate-300">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-amber-400 text-sm text-slate-100 outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
                 <label className="block text-xs font-serif text-slate-300">Role / Profile Type</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
@@ -356,7 +341,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-indigo-600 text-slate-950 font-bold text-sm hover:brightness-110 transition-all shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2 mt-4"
               >
                 <UserCheck className="w-4 h-4" />
-                {activeTab === 'login' ? 'Sign In & Access My Vault' : 'Create My Account'}
+                {activeTab === 'login' ? 'Continue with Local Profile' : 'Create Local Profile'}
               </button>
             </form>
           </div>

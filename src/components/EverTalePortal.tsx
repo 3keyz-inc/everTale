@@ -36,7 +36,7 @@ export const EverTalePortal: React.FC<EverTalePortalProps> = ({ onPlayChime, onN
       icon: '💬',
       title: 'Parent Command Center',
       tagline: 'Your private channel to guide the story securely',
-      testimonial: '"The Gordian privacy shield gave us total peace of mind. Zero photos stored, total magic delivered." — Marcus T., Beta Dad',
+      testimonial: 'Prototype preview: try the story flow with fictional or minimal personal details.',
     },
   ];
 
@@ -239,7 +239,7 @@ export const EverTalePortal: React.FC<EverTalePortalProps> = ({ onPlayChime, onN
                 &ldquo;Greetings, Leo! On your {selectedAge}th birthday, the ancient Stardust Lotus blazes anew. You possess the {selectedAge <= 7 ? 'Shield of Courage' : 'Emblem of Starfire'}. Come, your kingdom awaits!&rdquo;
               </p>
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-950 border border-cyan-400/40 text-cyan-300 text-xs rounded-full">
-                <Shield className="w-3.5 h-3.5" /> Gordian Effect Verified • Personalized Audio Render
+                <Shield className="w-3.5 h-3.5" /> Sample experience • Personalized story preview
               </div>
             </div>
           </div>
@@ -332,7 +332,7 @@ export const EverTalePortal: React.FC<EverTalePortalProps> = ({ onPlayChime, onN
               <p>
                 When Zephyr summoned you to defend the Lotus Garden, you didn’t hesitate. Keep that fearless heart as you grow. The world needs heroes who care as deeply as you do.&rdquo;
               </p>
-              <p className="text-right text-amber-400 font-bold">— Encrypted in your EverTale Vault for Age 18</p>
+              <p className="text-right text-amber-400 font-bold">— Sample legacy letter preview</p>
             </div>
 
             <button
@@ -353,31 +353,31 @@ export const EverTalePortal: React.FC<EverTalePortalProps> = ({ onPlayChime, onN
           </div>
           <div>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-emerald-200">
-              The Gordian Effect Privacy Guarantee
+              Prototype Data &amp; Privacy Notes
             </h2>
-            <p className="text-xs text-slate-400">Zero data harvesting. Zero ads. Absolute peace of mind.</p>
+            <p className="text-xs text-slate-400">Know where your data goes before creating a story.</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs">
           <div className="p-5 bg-slate-900 border border-slate-800 rounded-2xl space-y-2">
-            <span className="text-emerald-300 font-bold text-sm block">Instant Photo Shredding</span>
+            <span className="text-emerald-300 font-bold text-sm block">No Photo Uploads Yet</span>
             <p className="text-slate-300 leading-relaxed">
-              Raw parent photos uploaded for character styling are processed immediately in memory and destroyed within milliseconds.
+              This prototype does not currently accept or process parent photos.
             </p>
           </div>
 
           <div className="p-5 bg-slate-900 border border-slate-800 rounded-2xl space-y-2">
-            <span className="text-cyan-300 font-bold text-sm block">COPPA &amp; GDPR-K Compliant</span>
+            <span className="text-cyan-300 font-bold text-sm block">AI-assisted Drafts</span>
             <p className="text-slate-300 leading-relaxed">
-              We never train public AI models on your child&apos;s image, voice, or story inputs. Your vault is strictly isolated.
+              Story form entries may be sent to the configured AI provider. Use fictional or minimal details during testing.
             </p>
           </div>
 
           <div className="p-5 bg-slate-900 border border-slate-800 rounded-2xl space-y-2">
-            <span className="text-amber-300 font-bold text-sm block">AES-256 Vault Encryption</span>
+            <span className="text-amber-300 font-bold text-sm block">Browser-only Storage</span>
             <p className="text-slate-300 leading-relaxed">
-              All digital chapters and legacy letters are stored under Cloudflare R2 encrypted buckets accessible only by parent login.
+              Saved chapters and profiles use this browser&apos;s local storage. There is no cloud vault or production authentication yet.
             </p>
           </div>
         </div>
@@ -390,7 +390,7 @@ export const EverTalePortal: React.FC<EverTalePortalProps> = ({ onPlayChime, onN
             Simple Annual Subscription
           </span>
           <h2 className="font-serif text-3xl font-bold text-amber-100">$79 / Year Per Child</h2>
-          <p className="text-slate-400 text-xs">Pause or cancel anytime. Past chapters stay in your vault forever.</p>
+          <p className="text-slate-400 text-xs">Concept pricing only; checkout and subscriptions are not enabled in this prototype.</p>
         </div>
 
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-left space-y-3 text-xs text-slate-300">
